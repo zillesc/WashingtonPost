@@ -1,8 +1,12 @@
 package com.example;
 
 import com.google.gson.Gson;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.net.URL;
 
 import static org.junit.Assert.*;
 
@@ -91,22 +95,34 @@ public class NewsCollectionTest {
     @Before
     public void setUp() throws Exception {
         Gson gson = new Gson();
-        newsCollection = gson.fromJson(JSON_FOR_ARTICLE_COLLECTION, NewsCollection.class);
+        String url = "https://newsapi.org/v1/articles?source=the-washington-post&sortBy=top&apiKey=" +
+                NewsApi.API_KEY;
+
+        // Make an HTTP request to the above URL
+        final HttpResponse<String> stringHttpResponse = Unirest.get(url).asString();
+
+        // Check to see if the request was successful; if so, convert the payload JSON into Java objects
+        if (stringHttpResponse.getStatus() == 200) {
+            String json = stringHttpResponse.getBody();
+            newsCollection = gson.fromJson(json, NewsCollection.class);
+        } else {
+            newsCollection = gson.fromJson(JSON_FOR_ARTICLE_COLLECTION, NewsCollection.class);
+        }
     }
 
     @Test
     public void getStatus() throws Exception {
-
+        assertEquals("ok", newsCollection.getStatus());
     }
 
     @Test
     public void getSource() throws Exception {
-
+        assertEquals("the-washington-post", newsCollection.getSource());
     }
 
     @Test
-    public void getTop() throws Exception {
-
+    public void getSortBy() throws Exception {
+        assertEquals("top", newsCollection.getSortBy());
     }
 
     @Test

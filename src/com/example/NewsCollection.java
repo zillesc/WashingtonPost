@@ -11,7 +11,7 @@ package com.example;
 public class NewsCollection {
     private String status;
     private String source;
-    private String top;
+    private String sortBy;
     private NewsArticle[] articles;
 
     public String getStatus() {
@@ -22,8 +22,8 @@ public class NewsCollection {
         return source;
     }
 
-    public String getTop() {
-        return top;
+    public String getSortBy() {
+        return sortBy;
     }
 
     public NewsArticle[] getArticles() {
