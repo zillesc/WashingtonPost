@@ -25,6 +25,10 @@ public class NewsArticle {
     public NewsArticle() {
     }
 
+    /**
+     * A getter for the the Author name.
+     * @return author name
+     */
     public String getAuthor() {
         return author;
     }
@@ -47,5 +51,14 @@ public class NewsArticle {
 
     public String getPublishedAt() {
         return publishedAt;
+    }
+
+    /**
+     * Looks for string in article's author string.
+     * @param authorName a substring to search for in the author field
+     * @return a boolean indicating whether the substring was found
+     */
+    public boolean includesAuthor(String authorName) {
+        return author.contains(authorName);
     }
 }

@@ -3,10 +3,13 @@ package com.example;
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -130,4 +133,14 @@ public class NewsCollectionTest {
         assertEquals("Kelsey Snell, Kelsey Snell", newsCollection.getArticles()[0].getAuthor());
     }
 
+    @Test
+    public void testMap() throws Exception {
+        Map<String, NewsArticle> authorMap = new HashMap<String, NewsArticle>();
+        for (NewsArticle newsArticle: newsCollection.getArticles())  {
+            authorMap.put(newsArticle.getAuthor(), newsArticle);
+        }
+
+        assertEquals(newsCollection.getArticles()[0], authorMap.get(newsCollection.getArticles()[0].getAuthor()));
+
+    }
 }

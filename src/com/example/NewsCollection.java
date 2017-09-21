@@ -14,6 +14,10 @@ public class NewsCollection {
     private String sortBy;
     private NewsArticle[] articles;
 
+    /**
+     *
+     * @return
+     */
     public String getStatus() {
         return status;
     }
